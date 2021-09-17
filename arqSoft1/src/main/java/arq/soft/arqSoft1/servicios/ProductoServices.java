@@ -18,7 +18,6 @@ public class ProductoServices {
 	public List<ProductoDTO> obtenerAllProductos() {
 		
 		List<ProductoDTO> response = new ArrayList<ProductoDTO>();
-		
 		List<Producto> entitys = productoDAO.findAll();
 		
 		for(arq.soft.arqSoft1.entitys.Producto pbd : entitys) {
@@ -28,8 +27,15 @@ public class ProductoServices {
 			p.setNombre(pbd.getNombre());
 			response.add(p);
 		}
-
 		return response;
+	}
+	
+	public void guardarProductoNuevo(ProductoDTO dto) {
+		Producto p = new Producto();
+		p.setCantidad(dto.getCantidad());
+		p.setCategoria(dto.getCategoria());
+		p.setNombre(dto.getNombre());
+		productoDAO.save(p);
 	}
 
 	public ProductoDAO getProductoDAO() {
