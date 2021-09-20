@@ -28,6 +28,12 @@ public class Producto extends Entidad {
 	 
 	 @Column(name = "cantidad")
 	 private int cantidad;
+	 
+	 @Column(name = "precio")
+	 private String precio;
+	 
+	 @Column(name = "descripcion")
+	 private String descripcion;
 
 	public Long getId() {
 		return id;
@@ -60,5 +66,21 @@ public class Producto extends Entidad {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+	public String getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(String precio) {
+		this.precio = precio;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	
 }

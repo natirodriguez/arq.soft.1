@@ -2,11 +2,14 @@ package arq.soft.arqSoft1.servicios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import arq.soft.arqSoft1.dao.ProductoDAO;
 import arq.soft.arqSoft1.dto.ProductoDTO;
 import arq.soft.arqSoft1.entitys.Producto;
+import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
 
 @Service
 public class ProductoServices {
@@ -20,11 +23,14 @@ public class ProductoServices {
 		List<ProductoDTO> response = new ArrayList<ProductoDTO>();
 		List<Producto> entitys = productoDAO.findAll();
 		
-		for(arq.soft.arqSoft1.entitys.Producto pbd : entitys) {
+		for(Producto pbd : entitys) {
 			ProductoDTO p = new ProductoDTO();
+			p.setId(pbd.getId());
 			p.setCantidad(pbd.getCantidad());
 			p.setCategoria(pbd.getCategoria());
 			p.setNombre(pbd.getNombre());
+			p.setDescripcion(pbd.getDescripcion());
+			p.setPrecio(pbd.getPrecio());
 			response.add(p);
 		}
 		return response;
@@ -35,8 +41,33 @@ public class ProductoServices {
 		p.setCantidad(dto.getCantidad());
 		p.setCategoria(dto.getCategoria());
 		p.setNombre(dto.getNombre());
+		p.setDescripcion(dto.getDescripcion());
+		p.setPrecio(dto.getPrecio());
 		productoDAO.save(p);
 	}
+	
+	public void modificarProducto(ProductoDTO dto) throws ProductoNotFoundException {
+		
+		Optional<Producto> pop = productoDAO.findById(dto.getId());
+		if(pop.isPresent()) {
+			Producto p = pop.get();
+			p.setCantidad(dto.getCantidad());
+			p.setCategoria(dto.getCategoria());
+			p.setNombre(dto.getNombre());
+			p.setDescripcion(dto.getDescripcion());
+			p.setPrecio(dto.getPrecio());
+			productoDAO.save(p);
+		}else {
+			throw new ProductoNotFoundException();
+		}
+	}
+	
+	public void borrarProducto(long id) {
+		
+		productoDAO.deleteById(id);
+		
+	}
+
 
 	public ProductoDAO getProductoDAO() {
 		return productoDAO;

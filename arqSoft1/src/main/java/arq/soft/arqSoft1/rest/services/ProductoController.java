@@ -2,14 +2,21 @@ package arq.soft.arqSoft1.rest.services;
 
 import org.springframework.web.bind.annotation.RestController;
 import arq.soft.arqSoft1.dto.ProductoDTO;
+import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
 import arq.soft.arqSoft1.rest.response.Producto;
 import arq.soft.arqSoft1.servicios.ProductoServices;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -24,14 +31,16 @@ public class ProductoController {
 	public List<Producto> obtenerAllProductos() {
 		
 		List<Producto> response = new ArrayList<Producto>();
-		
 		List<ProductoDTO> dtos = productoServices.obtenerAllProductos();
 		
 		for(ProductoDTO pbd : dtos) {
 			Producto p = new Producto();
+			p.setId(pbd.getId());
 			p.setCantidad(pbd.getCantidad());
 			p.setCategoria(pbd.getCategoria());
 			p.setNombre(pbd.getNombre());
+			p.setDescripcion(pbd.getDescripcion());
+			p.setPrecio(pbd.getPrecio());
 			response.add(p);
 		}
 
@@ -47,9 +56,38 @@ public class ProductoController {
 			dto.setCantidad(request.getCantidad());
 			dto.setCategoria(request.getCategoria());
 			dto.setNombre(request.getNombre());
+			dto.setDescripcion(request.getDescripcion());
+			dto.setPrecio(request.getPrecio());
 			
 			productoServices.guardarProductoNuevo(dto);
-	
+	}
+    
+    @PutMapping(path = "/productos", 
+    consumes = MediaType.APPLICATION_JSON_VALUE, 
+    produces = MediaType.APPLICATION_JSON_VALUE)
+	public void modificarProducto(@RequestBody Producto request) {
+		
+			ProductoDTO dto = new ProductoDTO();
+			dto.setId(request.getId());
+			dto.setCantidad(request.getCantidad());
+			dto.setCategoria(request.getCategoria());
+			dto.setNombre(request.getNombre());
+			dto.setDescripcion(request.getDescripcion());
+			dto.setPrecio(request.getPrecio());
+			
+			try {
+				
+				productoServices.modificarProducto(dto);
+				
+			} catch (ProductoNotFoundException e) {
+				//TODO manejar excepcion
+			}
+	}
+    
+    @DeleteMapping(path = "/productos/{productId}")
+	public void borrarProducto(@PathVariable(value = "productId") long id) {
+		
+			productoServices.borrarProducto(id);
 	}
 
 	public ProductoServices getProductoServices() {
