@@ -68,6 +68,23 @@ public class ProductoServices {
 		
 	}
 
+	public ProductoDTO obtenerProductoById(long id) throws ProductoNotFoundException {
+	
+		ProductoDTO dto = new ProductoDTO();
+		Optional<Producto> pop = productoDAO.findById(id);
+		if(pop.isPresent()) {
+			Producto p = pop.get();
+			dto.setCantidad(p.getCantidad());
+			dto.setCategoria(p.getCategoria());
+			dto.setNombre(p.getNombre());
+			dto.setDescripcion(p.getDescripcion());
+			dto.setPrecio(p.getPrecio());
+			dto.setId(p.getId());
+	        return dto;
+		}else {
+			throw new ProductoNotFoundException();
+		}
+	}
 
 	public ProductoDAO getProductoDAO() {
 		return productoDAO;

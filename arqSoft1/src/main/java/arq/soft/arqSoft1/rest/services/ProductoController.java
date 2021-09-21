@@ -7,9 +7,6 @@ import arq.soft.arqSoft1.rest.response.Producto;
 import arq.soft.arqSoft1.servicios.ProductoServices;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +24,29 @@ public class ProductoController {
 	@Autowired
     private  ProductoServices  productoServices;
     
+	
+    @GetMapping("/productos/{productId}")
+	public Producto obtenerProducto(@PathVariable(value = "productId") long id) {
+		
+    	Producto p = new Producto();
+		try {
+			
+			ProductoDTO response = productoServices.obtenerProductoById(id);
+			
+			p.setId(response.getId());
+			p.setCantidad(response.getCantidad());
+			p.setCategoria(response.getCategoria());
+			p.setNombre(response.getNombre());
+			p.setDescripcion(response.getDescripcion());
+			p.setPrecio(response.getPrecio());
+		
+		} catch (ProductoNotFoundException e) {
+			// TODO
+		}
+		return p;
+	}
+    
+	
     @GetMapping("/productos")
 	public List<Producto> obtenerAllProductos() {
 		
