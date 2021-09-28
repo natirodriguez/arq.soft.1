@@ -69,6 +69,27 @@ public class ProductoController {
 		return response;
 	}
     
+    @GetMapping("/productos/vendedor/{vendedorId}")
+	public List<Producto> obtenerProductosByVendedor(@PathVariable(value = "vendedorId") long id) {
+		
+		List<Producto> response = new ArrayList<Producto>();
+		List<ProductoDTO> dtos = productoServices.obtenerProductosByVendedor(id);
+		
+		for(ProductoDTO pbd : dtos) {
+			Producto p = new Producto();
+			p.setId(pbd.getId());
+			p.setCantidad(pbd.getCantidad());
+			p.setCategoria(pbd.getCategoria());
+			p.setNombre(pbd.getNombre());
+			p.setDescripcion(pbd.getDescripcion());
+			p.setPrecio(pbd.getPrecio());
+			p.getIdVendedor();
+			response.add(p);
+		}
+
+		return response;
+	}
+    
     @PostMapping(path = "/productos", 
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)

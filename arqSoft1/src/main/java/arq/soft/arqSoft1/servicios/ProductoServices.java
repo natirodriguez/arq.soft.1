@@ -69,6 +69,26 @@ public class ProductoServices {
 		productoDAO.deleteById(id);
 		
 	}
+	
+	public List<ProductoDTO> obtenerProductosByVendedor(long id) {
+		
+        List<ProductoDTO> response = new ArrayList<ProductoDTO>();
+        List<Producto> entitys = productoDAO.obtenerProductosByVendedor(id);
+		
+		for(Producto pbd : entitys) {
+			ProductoDTO p = new ProductoDTO();
+			p.setId(pbd.getId());
+			p.setCantidad(pbd.getCantidad());
+			p.setCategoria(pbd.getCategoria());
+			p.setNombre(pbd.getNombre());
+			p.setDescripcion(pbd.getDescripcion());
+			p.setPrecio(pbd.getPrecio());
+			p.setIdVendedor(pbd.getIdVendedor());
+			response.add(p);
+		}
+		
+		return response;
+	}
 
 	public ProductoDTO obtenerProductoById(long id) throws ProductoNotFoundException {
 	
@@ -96,5 +116,6 @@ public class ProductoServices {
 	public void setProductoDAO(ProductoDAO productoDAO) {
 		this.productoDAO = productoDAO;
 	}
+
 
 }
