@@ -3,6 +3,7 @@ package arq.soft.arqSoft1.dto;
 public class ProductoDTO {
 
 	private long id;
+	private long idVendedor;
 	private int cantidad = 0;
 	private String categoria;
 	private String nombre;
@@ -44,6 +45,12 @@ public class ProductoDTO {
 	}
 	public void setPrecio(String precio) {
 		this.precio = precio;
+	}
+	public long getIdVendedor() {
+		return idVendedor;
+	}
+	public void setIdVendedor(long idVendedor) {
+		this.idVendedor = idVendedor;
 	}
 	
 }

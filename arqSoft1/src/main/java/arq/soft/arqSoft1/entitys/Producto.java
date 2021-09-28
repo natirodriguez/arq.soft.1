@@ -19,6 +19,9 @@ public class Producto extends Entidad {
 	 @GeneratedValue
 	 @Column(name = "producto_id")
 	 private Long id;
+	 
+	 @Column(name = "vendedor_id")
+	 private Long idVendedor;
 
 	 @Column(name = "nombre")
 	 private String nombre;
@@ -80,6 +83,14 @@ public class Producto extends Entidad {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Long getIdVendedor() {
+		return idVendedor;
+	}
+
+	public void setIdVendedor(Long idVendedor) {
+		this.idVendedor = idVendedor;
 	}
 
 	

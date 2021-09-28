@@ -39,6 +39,7 @@ public class ProductoController {
 			p.setNombre(response.getNombre());
 			p.setDescripcion(response.getDescripcion());
 			p.setPrecio(response.getPrecio());
+			p.setIdVendedor(response.getIdVendedor());
 		
 		} catch (ProductoNotFoundException e) {
 			// TODO
@@ -61,6 +62,7 @@ public class ProductoController {
 			p.setNombre(pbd.getNombre());
 			p.setDescripcion(pbd.getDescripcion());
 			p.setPrecio(pbd.getPrecio());
+			p.getIdVendedor();
 			response.add(p);
 		}
 
@@ -78,6 +80,7 @@ public class ProductoController {
 			dto.setNombre(request.getNombre());
 			dto.setDescripcion(request.getDescripcion());
 			dto.setPrecio(request.getPrecio());
+			dto.setIdVendedor(request.getIdVendedor());
 			
 			productoServices.guardarProductoNuevo(dto);
 	}

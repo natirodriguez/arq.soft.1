@@ -31,6 +31,7 @@ public class ProductoServices {
 			p.setNombre(pbd.getNombre());
 			p.setDescripcion(pbd.getDescripcion());
 			p.setPrecio(pbd.getPrecio());
+			p.setIdVendedor(pbd.getIdVendedor());
 			response.add(p);
 		}
 		return response;
@@ -43,6 +44,7 @@ public class ProductoServices {
 		p.setNombre(dto.getNombre());
 		p.setDescripcion(dto.getDescripcion());
 		p.setPrecio(dto.getPrecio());
+		p.setIdVendedor(dto.getIdVendedor());
 		productoDAO.save(p);
 	}
 	
@@ -80,6 +82,7 @@ public class ProductoServices {
 			dto.setDescripcion(p.getDescripcion());
 			dto.setPrecio(p.getPrecio());
 			dto.setId(p.getId());
+			dto.setIdVendedor(p.getIdVendedor());
 	        return dto;
 		}else {
 			throw new ProductoNotFoundException();
