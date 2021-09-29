@@ -1,13 +1,13 @@
 package arq.soft.arqSoft1.servicios;
 
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.anything;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,12 +15,11 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.stereotype.Service;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import arq.soft.arqSoft1.dao.ProductoDAO;
 import arq.soft.arqSoft1.dto.ProductoDTO;
 import arq.soft.arqSoft1.entitys.Producto;
+import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
 
 
 @RunWith(SpringRunner.class)
@@ -62,16 +61,59 @@ public class ProductoServicesTest {
 		
 	}
 	
-	/*
+	
 	@Test
 	public void obtener_prodcutos_vendedor() {
 		initServicio();
 		
-		when.
+		List<Producto> productos = new ArrayList<Producto>();
+	 	Producto p2 = new Producto();
+	 	p2.setCantidad(25);
+	 	p2.setCategoria("Mascotas");
+	 	p2.setDescripcion("Comida de perros");
+	 	p2.setIdVendedor(2L);
+	 	p2.setNombre("Kongo");
+	 	p2.setPrecio("23.00");
+	 	p2.setId(1L);
+    	productos.add(p2);
+    	
+    	Producto p = new Producto();
+    	p.setCantidad(25);
+    	p.setCategoria("Mascotas");
+    	p.setDescripcion("Comida de perros");
+    	p.setIdVendedor(2L);
+    	p.setNombre("Kongo");
+    	p.setPrecio("23.00");
+    	p.setId(1L);
+    	productos.add(p);
 		
-		List<ProductoDTO> productos = productoService.obtenerProductosByVendedor(1L);
+    	long vendedorID = 2L;
+    	
+		when(productoDAO.obtenerProductosByVendedor(vendedorID)).thenReturn(productos);
 		
-	}*/
+		List<ProductoDTO> productosDTO = productoService.obtenerProductosByVendedor(vendedorID);
+		
+		verify(productoDAO, times(1)).obtenerProductosByVendedor(vendedorID);
+		assertTrue(productosDTO.size() == 2);
+		
+	}
+	
+	@Test
+	public void obtener_producto_by_id_inexistente() {
+		
+		long productoId = 2L;
+		
+		Optional<Producto> prod = Optional.empty();
+		
+		when(productoDAO.findById(productoId)).thenReturn(prod);
+		
+		ProductoNotFoundException thrown = assertThrows(
+				ProductoNotFoundException.class,
+		           () -> productoService.obtenerProductoById(productoId),
+		           "Expected doThing() to throw, but it didn't"
+		    );
+		
+	}
 	
 
 	public ProductoDAO getProductoDAO() {
