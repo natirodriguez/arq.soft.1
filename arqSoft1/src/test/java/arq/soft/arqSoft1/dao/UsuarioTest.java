@@ -25,12 +25,11 @@ public class UsuarioTest {
 		
 		Usuario v = new Usuario();
     	v.setEmail("a@a.com");
-    	v.setId(1L);
     	v.setApellido("Genne");
     	v.setNombre("Simmons");
     	
-    	usuarioDAO.save(v);
-    	Optional<Usuario> vop = usuarioDAO.findById(1L);
+    	Usuario u = usuarioDAO.save(v);
+    	Optional<Usuario> vop = usuarioDAO.findById(u.getId());
     	
     	assertTrue(vop.isPresent());
 

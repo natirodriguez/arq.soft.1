@@ -3,6 +3,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,12 +24,17 @@ public class Producto extends Entidad {
 	 
 	 @Column(name = "vendedor_id")
 	 private Long idVendedor;
+	 
+	 //@Column(name = "categoria_id")
+	 @ManyToOne
+	 @JoinColumn(name="categoria_id", nullable=false)
+	 private Categoria categoria;
 
 	 @Column(name = "nombre")
 	 private String nombre;
 	 
-	 @Column(name = "categoria")
-	 private String categoria;
+	 //@Column(name = "categoria")
+	 //private String categoria;
 	 
 	 @Column(name = "cantidad")
 	 private int cantidad;
@@ -52,14 +59,6 @@ public class Producto extends Entidad {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
 	}
 
 	public int getCantidad() {
@@ -87,6 +86,14 @@ public class Producto extends Entidad {
 
 	public Long getIdVendedor() {
 		return idVendedor;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	public void setIdVendedor(Long idVendedor) {

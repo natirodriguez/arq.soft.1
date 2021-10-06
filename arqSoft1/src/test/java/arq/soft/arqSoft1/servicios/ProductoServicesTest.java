@@ -17,9 +17,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import arq.soft.arqSoft1.dao.ProductoDAO;
+import arq.soft.arqSoft1.dto.CategoriaDTO;
 import arq.soft.arqSoft1.dto.ProductoDTO;
+import arq.soft.arqSoft1.entitys.Categoria;
 import arq.soft.arqSoft1.entitys.Producto;
 import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
+
 
 
 @RunWith(SpringRunner.class)
@@ -42,9 +45,14 @@ public class ProductoServicesTest {
 		
 		initServicio();
 		
+		CategoriaDTO c = new CategoriaDTO();
+	 	c.setId(1L);
+	 	c.setNombre("Mascotas");
+	 
+		
 		ProductoDTO dto = new ProductoDTO();
 		dto.setCantidad(34);
-		dto.setCategoria("Mascotas");
+		dto.setCategoria(c);
 		dto.setDescripcion("Comida");
 		dto.setId(1L);
 		dto.setIdVendedor(2L);
@@ -66,11 +74,15 @@ public class ProductoServicesTest {
 	public void obtener_prodcutos_vendedor() {
 		initServicio();
 		
+	 	Categoria c = new Categoria();
+	 	c.setId(1L);
+	 	c.setNombre("Mascotas");
+		
 		List<Producto> productos = new ArrayList<Producto>();
 	 	Producto p2 = new Producto();
 	 	p2.setCantidad(25);
-	 	p2.setCategoria("Mascotas");
-	 	p2.setDescripcion("Comida de perros");
+	 	p2.setCategoria(c);
+	 	p2.setCantidad(25);
 	 	p2.setIdVendedor(2L);
 	 	p2.setNombre("Kongo");
 	 	p2.setPrecio("23.00");
@@ -79,7 +91,7 @@ public class ProductoServicesTest {
     	
     	Producto p = new Producto();
     	p.setCantidad(25);
-    	p.setCategoria("Mascotas");
+	 	p.setCategoria(c);
     	p.setDescripcion("Comida de perros");
     	p.setIdVendedor(2L);
     	p.setNombre("Kongo");

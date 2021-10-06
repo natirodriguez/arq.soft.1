@@ -23,11 +23,10 @@ public class VendedorTest {
 		
     	Vendedor v = new Vendedor();
     	v.setEmail("a@a.com");
-    	v.setId(1L);
     	v.setRazonSocial("Geene Simmons");
     	
-    	vendedorDAO.save(v);
-    	Optional<Vendedor> vop = vendedorDAO.findById(1L);
+    	Vendedor vv = vendedorDAO.save(v);
+    	Optional<Vendedor> vop = vendedorDAO.findById(vv.getId());
     	
     	assertTrue(vop.isPresent());
 

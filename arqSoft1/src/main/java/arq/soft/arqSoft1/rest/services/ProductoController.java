@@ -1,8 +1,11 @@
 package arq.soft.arqSoft1.rest.services;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import arq.soft.arqSoft1.dto.CategoriaDTO;
 import arq.soft.arqSoft1.dto.ProductoDTO;
 import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
+import arq.soft.arqSoft1.rest.response.Categoria;
 import arq.soft.arqSoft1.rest.response.Producto;
 import arq.soft.arqSoft1.servicios.ProductoServices;
 import java.util.ArrayList;
@@ -35,7 +38,12 @@ public class ProductoController {
 			
 			p.setId(response.getId());
 			p.setCantidad(response.getCantidad());
-			p.setCategoria(response.getCategoria());
+			
+			Categoria c = new Categoria();
+			c.setId(response.getCategoria().getId());
+			c.setNombre(response.getCategoria().getNombre());
+			p.setCategoria(c);
+			
 			p.setNombre(response.getNombre());
 			p.setDescripcion(response.getDescripcion());
 			p.setPrecio(response.getPrecio());
@@ -58,7 +66,12 @@ public class ProductoController {
 			Producto p = new Producto();
 			p.setId(pbd.getId());
 			p.setCantidad(pbd.getCantidad());
-			p.setCategoria(pbd.getCategoria());
+			
+			Categoria c = new Categoria();
+			c.setId(pbd.getCategoria().getId());
+			c.setNombre(pbd.getCategoria().getNombre());
+			p.setCategoria(c);
+			
 			p.setNombre(pbd.getNombre());
 			p.setDescripcion(pbd.getDescripcion());
 			p.setPrecio(pbd.getPrecio());
@@ -79,7 +92,12 @@ public class ProductoController {
 			Producto p = new Producto();
 			p.setId(pbd.getId());
 			p.setCantidad(pbd.getCantidad());
-			p.setCategoria(pbd.getCategoria());
+			
+			Categoria c = new Categoria();
+			c.setId(pbd.getCategoria().getId());
+			c.setNombre(pbd.getCategoria().getNombre());
+			p.setCategoria(c);
+			
 			p.setNombre(pbd.getNombre());
 			p.setDescripcion(pbd.getDescripcion());
 			p.setPrecio(pbd.getPrecio());
@@ -97,7 +115,12 @@ public class ProductoController {
 		
 			ProductoDTO dto = new ProductoDTO();
 			dto.setCantidad(request.getCantidad());
-			dto.setCategoria(request.getCategoria());
+			
+			CategoriaDTO c = new CategoriaDTO();
+			c.setId(request.getCategoria().getId());
+			c.setNombre(request.getCategoria().getNombre());
+			dto.setCategoria(c);
+			
 			dto.setNombre(request.getNombre());
 			dto.setDescripcion(request.getDescripcion());
 			dto.setPrecio(request.getPrecio());
@@ -114,7 +137,7 @@ public class ProductoController {
 			ProductoDTO dto = new ProductoDTO();
 			dto.setId(request.getId());
 			dto.setCantidad(request.getCantidad());
-			dto.setCategoria(request.getCategoria());
+			
 			dto.setNombre(request.getNombre());
 			dto.setDescripcion(request.getDescripcion());
 			dto.setPrecio(request.getPrecio());
@@ -134,6 +157,23 @@ public class ProductoController {
 			productoServices.borrarProducto(id);
 	}
 
+    
+    @GetMapping("/categorias")
+	public List<Categoria> obtenerAllcategorias() {
+		
+		List<Categoria> response = new ArrayList<Categoria>();
+		List<CategoriaDTO> dtos = productoServices.obtenerProductos();
+		
+		for(CategoriaDTO dto : dtos) {
+			Categoria c = new Categoria();
+			c.setId(dto.getId());
+			c.setNombre(dto.getNombre());
+			response.add(c);
+		}
+		
+		return response;
+	}
+    
 	public ProductoServices getProductoServices() {
 		return productoServices;
 	}

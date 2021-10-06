@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 import arq.soft.arqSoft1.dao.ProductoDAO;
+import arq.soft.arqSoft1.entitys.Categoria;
 import arq.soft.arqSoft1.entitys.Producto;
 
 @RunWith(SpringRunner.class)
@@ -19,6 +20,8 @@ public class ProductoTest {
 	@Autowired
 	private ProductoDAO productoDAO;
 	
+	@Autowired
+	private CategoriaDAO categoriaDAO;
 	
     @Test
     public void al_obtener_un_producto_guardado_debera_tener_los_mismos_datos() {
@@ -34,7 +37,7 @@ public class ProductoTest {
         assertEquals(pbSearched.getId(), p.getId());
         assertEquals(pbSearched.getIdVendedor(), p.getIdVendedor());
         assertEquals(pbSearched.getCantidad(), p.getCantidad());
-        assertEquals(pbSearched.getCategoria(), p.getCategoria());
+        assertEquals(pbSearched.getCategoria().getNombre(), p.getCategoria().getNombre());
         assertEquals(pbSearched.getDescripcion(), p.getDescripcion());
         assertEquals(pbSearched.getNombre(), p.getNombre());
         assertEquals(pbSearched.getPrecio(), p.getPrecio());
@@ -89,11 +92,15 @@ public class ProductoTest {
     
 	private Producto crearProducto() {
 		
+		Categoria c = new Categoria();
+		c.setNombre("Mascotas");
+		c = categoriaDAO.save(c);
+		
 	  	Producto p = new Producto();
+	  	p.setCategoria(c);
     	p.setCantidad(25);
-    	p.setCategoria("Mascotas");
     	p.setDescripcion("Comida de perros");
-    	p.setIdVendedor(2L);
+    	p.setIdVendedor(5L);
     	p.setNombre("Kongo");
     	p.setPrecio("23.00");
     	p.setId(1L);
@@ -107,9 +114,13 @@ public class ProductoTest {
 		
 		List<Producto> productos = new ArrayList<Producto>();
 		
+		Categoria c = new Categoria();
+		c.setNombre("Mascotas");
+		c = categoriaDAO.save(c);
+		
 	 	Producto p2 = new Producto();
 	 	p2.setCantidad(25);
-	 	p2.setCategoria("Mascotas");
+	 	p2.setCategoria(c);
 	 	p2.setDescripcion("Comida de perros");
 	 	p2.setIdVendedor(2L);
 	 	p2.setNombre("Kongo");
@@ -120,7 +131,7 @@ public class ProductoTest {
     	
     	Producto p = new Producto();
     	p.setCantidad(25);
-    	p.setCategoria("Mascotas");
+    	p.setCategoria(c);
     	p.setDescripcion("Comida de perros");
     	p.setIdVendedor(2L);
     	p.setNombre("Kongo");
@@ -131,7 +142,7 @@ public class ProductoTest {
     	
     	Producto p3 = new Producto();
 	 	p3.setCantidad(25);
-	 	p3.setCategoria("Mascotas");
+	 	p3.setCategoria(c);
 	 	p3.setDescripcion("Comida de perros");
 	 	p3.setIdVendedor(1L);
 	 	p3.setNombre("Kongo");
@@ -150,6 +161,14 @@ public class ProductoTest {
 
 	public void setProductoDAO(ProductoDAO productoDAO) {
 		this.productoDAO = productoDAO;
+	}
+
+	public CategoriaDAO getCategoriaDAO() {
+		return categoriaDAO;
+	}
+
+	public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
+		this.categoriaDAO = categoriaDAO;
 	}
 
 }

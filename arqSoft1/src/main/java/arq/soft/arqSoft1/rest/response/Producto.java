@@ -5,7 +5,7 @@ public class Producto {
 	private long id;
 	private long idVendedor;
 	private int cantidad = 0;
-	private String categoria;
+	private Categoria categoria;
 	private String nombre;
 	private String descripcion;
 	private String precio;
@@ -16,10 +16,10 @@ public class Producto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 	public int getCantidad() {
