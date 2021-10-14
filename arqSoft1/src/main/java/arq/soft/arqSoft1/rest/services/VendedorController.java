@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import arq.soft.arqSoft1.dto.VendedorDTO;
+import arq.soft.arqSoft1.excepciones.UsuarioFoundException;
 import arq.soft.arqSoft1.rest.response.Vendedor;
 import arq.soft.arqSoft1.servicios.VendedorServices;
 
@@ -25,10 +28,16 @@ public class VendedorController {
     produces = MediaType.APPLICATION_JSON_VALUE)
 	public void crearVendedor(@RequestBody Vendedor request) {
 		VendedorDTO dto = new VendedorDTO();
-		dto.setRazonSocial(request.getRazonSocial());
-		dto.setEmail(request.getEmail());
+		
+		try
+		{
+			dto.setRazonSocial(request.getRazonSocial());
+			dto.setEmail(request.getEmail());
 			
-		vendedorServices.guardarVendedor(dto);
+			vendedorServices.guardarVendedor(dto);			
+		} catch (UsuarioFoundException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Vendedor Found", e);
+		}
 	}
     
     @GetMapping("/vendedores")
