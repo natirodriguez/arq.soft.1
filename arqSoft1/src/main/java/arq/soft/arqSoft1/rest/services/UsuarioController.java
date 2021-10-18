@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import arq.soft.arqSoft1.dto.UsuarioDTO;
+import arq.soft.arqSoft1.excepciones.UsuarioFoundException;
 import arq.soft.arqSoft1.rest.response.Usuario;
 import arq.soft.arqSoft1.servicios.UsuarioServices;
 
@@ -22,17 +25,23 @@ public class UsuarioController {
     @PostMapping(path = "/usuarios", 
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
-	public void crearVendedor(@RequestBody Usuario request) {
+	public void crearUsuario(@RequestBody Usuario request) {
     	UsuarioDTO dto = new UsuarioDTO();
-		dto.setNombre(request.getNombre());
-		dto.setApellido(request.getApellido());
-		dto.setEmail(request.getEmail());
-			
-		usuarioService.guardarUsuario(dto);
+    	
+    	try
+    	{
+    		dto.setNombre(request.getNombre());
+    		dto.setApellido(request.getApellido());
+    		dto.setEmail(request.getEmail());
+    		
+    		usuarioService.guardarUsuario(dto);    		
+		} catch (UsuarioFoundException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario Found", e);
+		}
 	}
     
     @GetMapping("/usuarios")
-	public List<Usuario> obtenerAllVendedores() {
+	public List<Usuario> obtenerAllUsuarios() {
 		
 		List<Usuario> response = new ArrayList<Usuario>();
 		List<UsuarioDTO> dtos = usuarioService.obtenerAllUsuarios();

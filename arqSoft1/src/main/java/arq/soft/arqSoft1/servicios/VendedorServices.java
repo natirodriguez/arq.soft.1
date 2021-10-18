@@ -2,6 +2,7 @@ package arq.soft.arqSoft1.servicios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,17 +10,25 @@ import org.springframework.stereotype.Service;
 import arq.soft.arqSoft1.dao.VendedorDAO;
 import arq.soft.arqSoft1.dto.VendedorDTO;
 import arq.soft.arqSoft1.entitys.Vendedor;
+import arq.soft.arqSoft1.excepciones.UsuarioFoundException;
 
 @Service
 public class VendedorServices {
 	@Autowired
 	private VendedorDAO vendedorDAO;
 
-	public void guardarVendedor(VendedorDTO dto) {
-		Vendedor v = new Vendedor();
-		v.setRazonSocial(dto.getRazonSocial());
-		v.setEmail(dto.getEmail());
-		vendedorDAO.save(v);
+	public void guardarVendedor(VendedorDTO dto) throws UsuarioFoundException {
+		Optional<Vendedor> vendodoresByMail = vendedorDAO.findByEmail(dto.getEmail());
+
+		if(!vendodoresByMail.isPresent())
+		{
+			Vendedor v = new Vendedor();
+			v.setRazonSocial(dto.getRazonSocial());
+			v.setEmail(dto.getEmail());
+			vendedorDAO.save(v);			
+		}else {
+			throw new UsuarioFoundException();
+		}
 	}
 	
 	public List<VendedorDTO> obtenerAllVendedores() {

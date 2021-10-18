@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="arq.soft.arqSoft1.dao.UsuarioDAO"/>
-    <fullyQualifiedTypeName name="arq.soft.arqSoft1.servicios.UsuarioServices"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="arq.soft.arqSoft1.excepciones.UsuarioFoundException"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+    <fullyQualifiedTypeName name="org.springframework.web.server.ResponseStatusException"/>
 </qualifiedTypeNameHistroy>
