@@ -1,7 +1,10 @@
 package arq.soft.arqSoft1.rest.response;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Categoria {
      
+	 //@ApiModelProperty(notes = "Name of the Student",name="name",required=true,value="test name")
 	 private Long id;
 	 
 	 private String nombre;
