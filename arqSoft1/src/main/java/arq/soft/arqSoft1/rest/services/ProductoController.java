@@ -157,6 +157,31 @@ public class ProductoController {
 			productoServices.borrarProducto(id);
 	}
 
+    @GetMapping("/productos/find/{nombreDescripcion}")
+	public List<Producto> obtenerProductosByNombreYDescripcion(@PathVariable(value = "nombreDescripcion") String nombreDescripcion) {
+		
+		List<Producto> response = new ArrayList<Producto>();
+		List<ProductoDTO> dtos = productoServices.obtenerProductosByNombreYDescripcion(nombreDescripcion);
+		
+		for(ProductoDTO pbd : dtos) {
+			Producto p = new Producto();
+			p.setId(pbd.getId());
+			p.setCantidad(pbd.getCantidad());
+			
+			Categoria c = new Categoria();
+			c.setId(pbd.getCategoria().getId());
+			c.setNombre(pbd.getCategoria().getNombre());
+			p.setCategoria(c);
+			
+			p.setNombre(pbd.getNombre());
+			p.setDescripcion(pbd.getDescripcion());
+			p.setPrecio(pbd.getPrecio());
+			p.getIdVendedor();
+			response.add(p);
+		}
+
+		return response;
+	}
     
     @GetMapping("/categorias")
 	public List<Categoria> obtenerAllcategorias() {

@@ -150,6 +150,31 @@ public class ProductoServices {
 		}
 	}
 	
+	public List<ProductoDTO> obtenerProductosByNombreYDescripcion(String nombreDescripcion) 
+	{	
+        List<ProductoDTO> response = new ArrayList<ProductoDTO>();
+		List<Producto> entitys = productoDAO.obtenerProductosByNombreYDescripcion(nombreDescripcion);
+		
+		for(Producto pbd : entitys) {
+			ProductoDTO p = new ProductoDTO();
+			p.setId(pbd.getId());
+			p.setCantidad(pbd.getCantidad());
+			
+			CategoriaDTO c = new CategoriaDTO();
+			c.setId(pbd.getCategoria().getId());
+			c.setNombre(pbd.getCategoria().getNombre());
+			p.setCategoria(c);
+
+			p.setNombre(pbd.getNombre());
+			p.setDescripcion(pbd.getDescripcion());
+			p.setPrecio(pbd.getPrecio());
+			p.setIdVendedor(pbd.getIdVendedor());
+			response.add(p);
+		}
+		
+		return response; 
+	}
+	
 	public List<CategoriaDTO> obtenerProductos() {
 		
 		List<CategoriaDTO> categorias = new ArrayList<CategoriaDTO>();
