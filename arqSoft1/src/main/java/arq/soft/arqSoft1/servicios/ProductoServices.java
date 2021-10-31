@@ -3,9 +3,7 @@ package arq.soft.arqSoft1.servicios;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import arq.soft.arqSoft1.dao.*;
@@ -154,6 +152,31 @@ public class ProductoServices {
 	{	
         List<ProductoDTO> response = new ArrayList<ProductoDTO>();
 		List<Producto> entitys = productoDAO.obtenerProductosByNombreYDescripcion(nombreDescripcion);
+		
+		for(Producto pbd : entitys) {
+			ProductoDTO p = new ProductoDTO();
+			p.setId(pbd.getId());
+			p.setCantidad(pbd.getCantidad());
+			
+			CategoriaDTO c = new CategoriaDTO();
+			c.setId(pbd.getCategoria().getId());
+			c.setNombre(pbd.getCategoria().getNombre());
+			p.setCategoria(c);
+
+			p.setNombre(pbd.getNombre());
+			p.setDescripcion(pbd.getDescripcion());
+			p.setPrecio(pbd.getPrecio());
+			p.setIdVendedor(pbd.getIdVendedor());
+			response.add(p);
+		}
+		
+		return response; 
+	}
+	
+	public List<ProductoDTO> filtrarProductosPorCategroria(long idCategoria) 
+	{	
+        List<ProductoDTO> response = new ArrayList<ProductoDTO>();
+		List<Producto> entitys = productoDAO.filtrarProductosPorCategoria(idCategoria);
 		
 		for(Producto pbd : entitys) {
 			ProductoDTO p = new ProductoDTO();

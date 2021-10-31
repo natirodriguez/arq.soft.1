@@ -1,7 +1,6 @@
 package arq.soft.arqSoft1.rest.services;
 
 import org.springframework.web.bind.annotation.RestController;
-
 import arq.soft.arqSoft1.dto.CategoriaDTO;
 import arq.soft.arqSoft1.dto.ProductoDTO;
 import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @RestController
 public class ProductoController {
@@ -162,6 +159,31 @@ public class ProductoController {
 		
 		List<Producto> response = new ArrayList<Producto>();
 		List<ProductoDTO> dtos = productoServices.obtenerProductosByNombreYDescripcion(nombreDescripcion);
+		
+		for(ProductoDTO pbd : dtos) {
+			Producto p = new Producto();
+			p.setId(pbd.getId());
+			p.setCantidad(pbd.getCantidad());
+			
+			Categoria c = new Categoria();
+			c.setId(pbd.getCategoria().getId());
+			c.setNombre(pbd.getCategoria().getNombre());
+			p.setCategoria(c);
+			
+			p.setNombre(pbd.getNombre());
+			p.setDescripcion(pbd.getDescripcion());
+			p.setPrecio(pbd.getPrecio());
+			p.getIdVendedor();
+			response.add(p);
+		}
+
+		return response;
+	}
+    
+    @GetMapping("/productos/filter/{categoriaId}")
+	public List<Producto> filtrarProductosPorCategroria(@PathVariable(value = "categoriaId") long idCategoria) {
+		List<Producto> response = new ArrayList<Producto>();
+		List<ProductoDTO> dtos = productoServices.filtrarProductosPorCategroria(idCategoria);
 		
 		for(ProductoDTO pbd : dtos) {
 			Producto p = new Producto();
