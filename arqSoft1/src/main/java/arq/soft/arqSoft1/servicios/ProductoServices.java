@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import arq.soft.arqSoft1.dao.*;
 import arq.soft.arqSoft1.dto.CategoriaDTO;
@@ -22,17 +23,19 @@ public class ProductoServices {
 	@Autowired
 	private CategoriaDAO categoriaDAO;
 	
+	@Value("#{'${arqsoft.categorias}'.split(',')}") 
+	private List<String> categorias;
+	
 	@PostConstruct
 	public void initCategorias() {
 		
-		Categoria c = new Categoria();
-		c.setNombre("Mascotas");
+		categoriaDAO.deleteAll();
 
-		Categoria c2 = new Categoria();
-		c2.setNombre("Limpieza");
-		
-		categoriaDAO.save(c);
-		categoriaDAO.save(c2);
+		for(String c : categorias) {
+			Categoria cat = new Categoria();
+			cat.setNombre(c);
+			categoriaDAO.save(cat);
+		}
 	}
 	
 	public List<ProductoDTO> obtenerAllProductos() {
@@ -228,6 +231,14 @@ public class ProductoServices {
 
 	public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
 		this.categoriaDAO = categoriaDAO;
+	}
+
+	public List<String> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<String> categorias) {
+		this.categorias = categorias;
 	}
 
 
