@@ -78,20 +78,44 @@ public class ProductoTest {
     }
     
     @Test
-    public void obtener_prodcutos_de_un_vendedor() {
+    public void filtrar_productos_de_una_categoria() {
+    	
+    	Producto pbSearched = crearProducto();
+    	
+    	List<Producto> productosVen1 = productoDAO.filtrarProductosPorCategoria(pbSearched.getCategoria().getId());
+    	
+    	assertTrue(productosVen1.size() == 1);
+    }
+    
+    @Test
+    public void obtener_productos_de_un_vendedor() {
     	
     	crearSetProductos();
     	
     	List<Producto> productosVen1 = productoDAO.obtenerProductosByVendedor(1L);
-    	List<Producto> productosVen2 = productoDAO.obtenerProductosByVendedor(2L);
     	
     	assertTrue(productosVen1.size() == 1);
-    	assertTrue(productosVen2.size() == 2);
     }
     
+    @Test
+    public void buscar_productos_por_nombre() {
+    	crearProducto();
+
+    	List<Producto> productosVen1 = productoDAO.obtenerProductosByNombreYDescripcion("Kongo");
+    	
+    	assertTrue(productosVen1.size() == 5);
+    }
+    
+    @Test
+    public void buscar_productos_por_descipcion() {
+    	crearProducto();
+
+    	List<Producto> productosVen1 = productoDAO.obtenerProductosByNombreYDescripcion("Comida");
+    	
+    	assertTrue(productosVen1.size() == 2);
+    }
     
 	private Producto crearProducto() {
-		
 		Categoria c = new Categoria();
 		c.setNombre("Mascotas");
 		c = categoriaDAO.save(c);
