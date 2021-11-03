@@ -29,12 +29,13 @@ public class ProductoServices {
 	@PostConstruct
 	public void initCategorias() {
 		
-		categoriaDAO.deleteAll();
-
 		for(String c : categorias) {
-			Categoria cat = new Categoria();
-			cat.setNombre(c);
-			categoriaDAO.save(cat);
+			Categoria catBDD  = categoriaDAO.obtenerCategoriaByNombre(c);
+			if(catBDD == null) {
+				Categoria cat = new Categoria();
+				cat.setNombre(c);
+				categoriaDAO.save(cat);
+			}
 		}
 	}
 	
