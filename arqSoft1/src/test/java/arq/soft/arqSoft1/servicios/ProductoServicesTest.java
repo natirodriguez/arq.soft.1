@@ -57,7 +57,7 @@ public class ProductoServicesTest {
 		dto.setId(1L);
 		dto.setIdVendedor(2L);
 		dto.setNombre("Dogui");
-		dto.setPrecio("156.00");
+		dto.setPrecio(156.00D);
 		
 		ArgumentCaptor<Producto> argument = ArgumentCaptor.forClass(Producto.class);
 		
@@ -85,7 +85,7 @@ public class ProductoServicesTest {
 	 	p2.setCantidad(25);
 	 	p2.setIdVendedor(2L);
 	 	p2.setNombre("Kongo");
-	 	p2.setPrecio("23.00");
+	 	p2.setPrecio(23.00D);
 	 	p2.setId(1L);
     	productos.add(p2);
     	
@@ -95,7 +95,7 @@ public class ProductoServicesTest {
     	p.setDescripcion("Comida de perros");
     	p.setIdVendedor(2L);
     	p.setNombre("Kongo");
-    	p.setPrecio("23.00");
+    	p.setPrecio(23.00D);
     	p.setId(1L);
     	productos.add(p);
 		
@@ -124,7 +124,6 @@ public class ProductoServicesTest {
 		           () -> productoService.obtenerProductoById(productoId),
 		           "Expected doThing() to throw, but it didn't"
 		    );
-		
 	}
 	
 

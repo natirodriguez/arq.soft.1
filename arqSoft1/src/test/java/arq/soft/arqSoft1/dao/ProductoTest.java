@@ -49,7 +49,7 @@ public class ProductoTest {
     	
     	Producto pbSearched = crearProducto();
     	
-    	pbSearched.setPrecio("100.00");
+    	pbSearched.setPrecio(100.00D);
     	pbSearched.setNombre("RoyalCanin");
     	
     	Producto prod = productoDAO.save(pbSearched);
@@ -126,7 +126,7 @@ public class ProductoTest {
     	p.setDescripcion("Comida de perros");
     	p.setIdVendedor(5L);
     	p.setNombre("Kongo");
-    	p.setPrecio("23.00");
+    	p.setPrecio(23.00D);
     	p.setId(1L);
     	
     	Producto pbd = productoDAO.save(p);
@@ -148,7 +148,7 @@ public class ProductoTest {
 	 	p2.setDescripcion("Comida de perros");
 	 	p2.setIdVendedor(2L);
 	 	p2.setNombre("Kongo");
-	 	p2.setPrecio("23.00");
+	 	p2.setPrecio(23.00D);
 	 	p2.setId(1L);
     	productoDAO.save(p2);
     	productos.add(p2);
@@ -159,7 +159,7 @@ public class ProductoTest {
     	p.setDescripcion("Comida de perros");
     	p.setIdVendedor(2L);
     	p.setNombre("Kongo");
-    	p.setPrecio("23.00");
+    	p.setPrecio(23.00D);
     	p.setId(1L);
     	productoDAO.save(p);
     	productos.add(p);
@@ -170,13 +170,12 @@ public class ProductoTest {
 	 	p3.setDescripcion("Comida de perros");
 	 	p3.setIdVendedor(1L);
 	 	p3.setNombre("Kongo");
-	 	p3.setPrecio("23.00");
+	 	p3.setPrecio(23.00D);
 	 	p3.setId(1L);
     	productoDAO.save(p3);
     	productos.add(p3);
     	
     	return productos;
-		
 	}
 
 	public ProductoDAO getProductoDAO() {

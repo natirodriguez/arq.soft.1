@@ -40,7 +40,7 @@ public class Producto extends Entidad {
 	 private int cantidad;
 	 
 	 @Column(name = "precio")
-	 private String precio;
+	 private double precio;
 	 
 	 @Column(name = "descripcion")
 	 private String descripcion;
@@ -68,11 +68,11 @@ public class Producto extends Entidad {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	public String getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(String precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 

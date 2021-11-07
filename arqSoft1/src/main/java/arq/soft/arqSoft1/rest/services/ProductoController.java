@@ -110,20 +110,20 @@ public class ProductoController {
     produces = MediaType.APPLICATION_JSON_VALUE)
 	public void crearProducto(@RequestBody Producto request) {
 		
-			ProductoDTO dto = new ProductoDTO();
-			dto.setCantidad(request.getCantidad());
-			
-			CategoriaDTO c = new CategoriaDTO();
-			c.setId(request.getCategoria().getId());
-			c.setNombre(request.getCategoria().getNombre());
-			dto.setCategoria(c);
-			
-			dto.setNombre(request.getNombre());
-			dto.setDescripcion(request.getDescripcion());
-			dto.setPrecio(request.getPrecio());
-			dto.setIdVendedor(request.getIdVendedor());
-			
-			productoServices.guardarProductoNuevo(dto);
+		ProductoDTO dto = new ProductoDTO();
+		dto.setCantidad(request.getCantidad());
+		
+		CategoriaDTO c = new CategoriaDTO();
+		c.setId(request.getCategoria().getId());
+		c.setNombre(request.getCategoria().getNombre());
+		dto.setCategoria(c);
+		
+		dto.setNombre(request.getNombre());
+		dto.setDescripcion(request.getDescripcion());
+		dto.setPrecio(request.getPrecio());
+		dto.setIdVendedor(request.getIdVendedor());
+		
+		productoServices.guardarProductoNuevo(dto);
 	}
     
     @PutMapping(path = "/productos", 
@@ -131,21 +131,19 @@ public class ProductoController {
     produces = MediaType.APPLICATION_JSON_VALUE)
 	public void modificarProducto(@RequestBody Producto request) {
 		
-			ProductoDTO dto = new ProductoDTO();
-			dto.setId(request.getId());
-			dto.setCantidad(request.getCantidad());
+		ProductoDTO dto = new ProductoDTO();
+		dto.setId(request.getId());
+		dto.setCantidad(request.getCantidad());
 			
-			dto.setNombre(request.getNombre());
-			dto.setDescripcion(request.getDescripcion());
-			dto.setPrecio(request.getPrecio());
-			
-			try {
-				
-				productoServices.modificarProducto(dto);
-				
-			} catch (ProductoNotFoundException e) {
-				//TODO manejar excepcion
-			}
+		dto.setNombre(request.getNombre());
+		dto.setDescripcion(request.getDescripcion());
+		dto.setPrecio(request.getPrecio());
+		
+		try {
+			productoServices.modificarProducto(dto);		
+		} catch (ProductoNotFoundException e) {
+			//TODO manejar excepcion
+		}
 	}
     
     @DeleteMapping(path = "/productos/{productId}")
