@@ -1,12 +1,15 @@
 package arq.soft.arqSoft1.rest.response;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description="Datos para crear una categoria.")
 public class Categoria {
      
-	 //@ApiModelProperty(notes = "Name of the Student",name="name",required=true,value="test name")
+	 @ApiModelProperty(value = "Id de la categoria, tipo long", example = "1")
 	 private Long id;
 	 
+	 @ApiModelProperty(value = "Nombre de la categoria, tipo String", example = "Macotas")
 	 private String nombre;
 
 	 public Long getId() {

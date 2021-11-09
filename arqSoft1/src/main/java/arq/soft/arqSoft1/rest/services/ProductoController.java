@@ -7,6 +7,9 @@ import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
 import arq.soft.arqSoft1.rest.response.Categoria;
 import arq.soft.arqSoft1.rest.response.Producto;
 import arq.soft.arqSoft1.servicios.ProductoServices;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,7 @@ public class ProductoController {
     
 	
     @GetMapping("/productos/{productId}")
+    @ApiOperation(nickname = "obtener_producto_id", value = "Obtiene un producto por su id")
 	public Producto obtenerProducto(@PathVariable(value = "productId") long id) {
 		
     	Producto p = new Producto();
@@ -54,6 +58,7 @@ public class ProductoController {
     
 	
     @GetMapping("/productos")
+    @ApiOperation(nickname = "obtener_productos", value = "Obtiene todos los productos creados")
 	public List<Producto> obtenerAllProductos() {
 		
 		List<Producto> response = new ArrayList<Producto>();
@@ -80,6 +85,7 @@ public class ProductoController {
 	}
     
     @GetMapping("/productos/vendedor/{vendedorId}")
+    @ApiOperation(nickname = "obtener_productos_vendedor", value = "Obtiene todos los productos de un vendedor")
 	public List<Producto> obtenerProductosByVendedor(@PathVariable(value = "vendedorId") long id) {
 		
 		List<Producto> response = new ArrayList<Producto>();
@@ -108,6 +114,7 @@ public class ProductoController {
     @PostMapping(path = "/productos", 
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(nickname = "crear_producto", value = "Crea un producto")
 	public void crearProducto(@RequestBody Producto request) {
 		
 			ProductoDTO dto = new ProductoDTO();
@@ -129,6 +136,7 @@ public class ProductoController {
     @PutMapping(path = "/productos", 
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(nickname = "modificar_producto", value = "Modifica un producto por su id")
 	public void modificarProducto(@RequestBody Producto request) {
 		
 			ProductoDTO dto = new ProductoDTO();
@@ -149,12 +157,14 @@ public class ProductoController {
 	}
     
     @DeleteMapping(path = "/productos/{productId}")
+    @ApiOperation(nickname = "borrar_producto", value = "Borra un producto por su id")
 	public void borrarProducto(@PathVariable(value = "productId") long id) {
 		
 			productoServices.borrarProducto(id);
 	}
 
     @GetMapping("/productos/find/{nombreDescripcion}")
+    @ApiOperation(nickname = "filtrar_prod_by_descripcion", value = "Busca productos por una descripcion")
 	public List<Producto> obtenerProductosByNombreYDescripcion(@PathVariable(value = "nombreDescripcion") String nombreDescripcion) {
 		
 		List<Producto> response = new ArrayList<Producto>();
@@ -181,6 +191,7 @@ public class ProductoController {
 	}
     
     @GetMapping("/productos/filter/{categoriaId}")
+    @ApiOperation(nickname = "filtrar_prod_by_categoria", value = "Busca productos por una categoria")
 	public List<Producto> filtrarProductosPorCategroria(@PathVariable(value = "categoriaId") long idCategoria) {
 		List<Producto> response = new ArrayList<Producto>();
 		List<ProductoDTO> dtos = productoServices.filtrarProductosPorCategroria(idCategoria);
@@ -206,6 +217,7 @@ public class ProductoController {
 	}
     
     @GetMapping("/categorias")
+    @ApiOperation(nickname = "obtener_categorias", value = "Devuelve todas las categorias")
 	public List<Categoria> obtenerAllcategorias() {
 		
 		List<Categoria> response = new ArrayList<Categoria>();

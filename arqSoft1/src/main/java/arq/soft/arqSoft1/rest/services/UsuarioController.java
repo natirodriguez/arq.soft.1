@@ -16,6 +16,7 @@ import arq.soft.arqSoft1.dto.UsuarioDTO;
 import arq.soft.arqSoft1.excepciones.UsuarioFoundException;
 import arq.soft.arqSoft1.rest.response.Usuario;
 import arq.soft.arqSoft1.servicios.UsuarioServices;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class UsuarioController {
@@ -25,6 +26,7 @@ public class UsuarioController {
     @PostMapping(path = "/usuarios", 
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(nickname = "crear_usuario", value = "Crea un usuario")
 	public void crearUsuario(@RequestBody Usuario request) {
     	UsuarioDTO dto = new UsuarioDTO();
     	
@@ -41,6 +43,7 @@ public class UsuarioController {
 	}
     
     @GetMapping("/usuarios")
+    @ApiOperation(nickname = "obtener_usuarios", value = "Obtiene todos los usuarios")
 	public List<Usuario> obtenerAllUsuarios() {
 		
 		List<Usuario> response = new ArrayList<Usuario>();
