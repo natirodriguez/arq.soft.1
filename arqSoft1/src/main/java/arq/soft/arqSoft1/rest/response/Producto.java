@@ -19,7 +19,7 @@ public class Producto {
 	@ApiModelProperty(value = "Descripcion de un producto, tipo String", example = "Esto es un balanceado para perros")
 	private String descripcion;
 	@ApiModelProperty(value = "Precio de un producto, tipo Double", example = "20.5")
-	private String precio;
+	private double precio;
 	
 	public String getNombre() {
 		return nombre;
@@ -51,10 +51,10 @@ public class Producto {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public String getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
-	public void setPrecio(String precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 	public long getIdVendedor() {
