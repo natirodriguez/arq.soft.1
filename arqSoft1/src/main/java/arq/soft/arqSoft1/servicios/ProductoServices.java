@@ -216,8 +216,6 @@ public class ProductoServices {
 		return categorias;
 	}
 	
-	
-
 	public ProductoDAO getProductoDAO() {
 		return productoDAO;
 	}

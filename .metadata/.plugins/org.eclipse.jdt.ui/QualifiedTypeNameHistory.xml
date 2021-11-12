@@ -9,4 +9,7 @@
     <fullyQualifiedTypeName name="arq.soft.arqSoft1.dto.FiltroProductoDTO"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestHeader"/>
+    <fullyQualifiedTypeName name="arq.soft.arqSoft1.rest.response.VentaProducto"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="arq.soft.arqSoft1.dao.VentaProductoDAO"/>
 </qualifiedTypeNameHistroy>
