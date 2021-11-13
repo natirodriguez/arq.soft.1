@@ -2,9 +2,11 @@ package arq.soft.arqSoft1.rest.services;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import arq.soft.arqSoft1.dto.CategoriaDTO;
 import arq.soft.arqSoft1.dto.ProductoDTO;
+import arq.soft.arqSoft1.excepciones.CategoriaNotFoundException;
 import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
 import arq.soft.arqSoft1.rest.response.Categoria;
 import arq.soft.arqSoft1.rest.response.Producto;
@@ -15,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -232,6 +235,22 @@ public class ProductoController {
 		}
 		
 		return response;
+	}
+    
+    @GetMapping("/categorias/{nombre}")
+    @ApiOperation(nickname = "obtener_categoria_nombre", value = "Devuelve todas las categorias")
+	public Categoria obtenerCategoriaByNombre(@PathVariable(value = "nombre") String nombre) {
+		
+		Categoria c = new Categoria();
+		try {
+			CategoriaDTO dto = productoServices.obtenerCategoriaPorNombre(nombre);
+			c.setId(dto.getId());
+			c.setNombre(dto.getNombre());
+		} catch (CategoriaNotFoundException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria not  Found", e);
+		}
+
+		return c;
 	}
     
 	public ProductoServices getProductoServices() {

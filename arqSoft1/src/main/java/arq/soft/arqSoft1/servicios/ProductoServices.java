@@ -12,6 +12,7 @@ import arq.soft.arqSoft1.dto.CategoriaDTO;
 import arq.soft.arqSoft1.dto.ProductoDTO;
 import arq.soft.arqSoft1.entitys.Categoria;
 import arq.soft.arqSoft1.entitys.Producto;
+import arq.soft.arqSoft1.excepciones.CategoriaNotFoundException;
 import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
 
 @Service
@@ -216,6 +217,21 @@ public class ProductoServices {
 		return categorias;
 	}
 	
+	public CategoriaDTO obtenerCategoriaPorNombre(String nombre) throws CategoriaNotFoundException {
+
+		Categoria c = categoriaDAO.obtenerCategoriaByNombre(nombre);
+		
+		if(c != null) {
+			CategoriaDTO dto = new CategoriaDTO();
+			dto.setId(c.getId());
+			dto.setNombre(c.getNombre());
+			return dto;
+			
+		}else {
+			throw new CategoriaNotFoundException();
+		}
+	}
+	
 	public ProductoDAO getProductoDAO() {
 		return productoDAO;
 	}
@@ -239,6 +255,5 @@ public class ProductoServices {
 	public void setCategorias(List<String> categorias) {
 		this.categorias = categorias;
 	}
-
 
 }

@@ -11,6 +11,7 @@ import arq.soft.arqSoft1.dao.VendedorDAO;
 import arq.soft.arqSoft1.dto.VendedorDTO;
 import arq.soft.arqSoft1.entitys.Vendedor;
 import arq.soft.arqSoft1.excepciones.UsuarioFoundException;
+import arq.soft.arqSoft1.excepciones.UsuarioNotFoundException;
 
 @Service
 public class VendedorServices {
@@ -45,6 +46,21 @@ public class VendedorServices {
 		return response;
 	}
 	
+	public VendedorDTO obtenerVendedorByEmail(String email) throws UsuarioNotFoundException {
+		Optional<Vendedor> vendodoresByMail = vendedorDAO.findByEmail(email);
+
+		if(vendodoresByMail.isPresent()) {
+			Vendedor dto = vendodoresByMail.get();
+			VendedorDTO v = new VendedorDTO();
+			v.setRazonSocial(dto.getRazonSocial());
+			v.setEmail(dto.getEmail());
+	        v.setId(dto.getId());	
+	        return v;
+		}else {
+			throw new UsuarioNotFoundException();
+		}
+	}
+	
 	// Getter y setter
 	public VendedorDAO getVendedorDAO() {
 		return vendedorDAO;
@@ -53,4 +69,5 @@ public class VendedorServices {
 	public void setVendedorDAO(VendedorDAO vendedorDAO) {
 		this.vendedorDAO = vendedorDAO;
 	}
+
 }
