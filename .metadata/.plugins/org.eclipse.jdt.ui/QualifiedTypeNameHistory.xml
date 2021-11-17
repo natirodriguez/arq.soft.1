@@ -12,4 +12,8 @@
     <fullyQualifiedTypeName name="arq.soft.arqSoft1.rest.response.VentaProducto"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="arq.soft.arqSoft1.dao.VentaProductoDAO"/>
+    <fullyQualifiedTypeName name="arq.soft.front.clientes.Producto"/>
+    <fullyQualifiedTypeName name="arq.soft.front.forms.AddVentaProductoForm"/>
+    <fullyQualifiedTypeName name="arq.soft.front.clientes.Usuario"/>
+    <fullyQualifiedTypeName name="arq.soft.front.clientes.VentaProducto"/>
 </qualifiedTypeNameHistroy>
