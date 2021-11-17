@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import arq.soft.arqSoft1.dto.VentaProductoDTO;
+import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
+import arq.soft.arqSoft1.excepciones.ProductoSinStockException;
 import arq.soft.arqSoft1.rest.response.VentaProducto;
 import arq.soft.arqSoft1.servicios.VentaProductoServices;
 import io.swagger.annotations.ApiOperation;
@@ -25,13 +27,18 @@ public class VentaProductoController {
     produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(nickname = "generar_venta_producto", value = "Generar la venta de un producto")
 	public void crearProducto(@RequestBody VentaProducto request) {
-		
-		VentaProductoDTO dto = new VentaProductoDTO();
-		dto.setCantidadComprada(request.getCantidadComprada());
-		dto.setIdProducto(request.getIdProducto());
-		dto.setIdComprador(request.getIdComprador());
-		
-		ventaProductoServices.guardarProductoNuevo(dto);
+    	try
+    	{
+    		VentaProductoDTO dto = new VentaProductoDTO();
+    		dto.setCantidadComprada(request.getCantidadComprada());
+    		dto.setIdProducto(request.getIdProducto());
+    		dto.setIdComprador(request.getIdComprador());
+    		
+    		ventaProductoServices.procesarVentaProducto(dto);
+    	}catch(ProductoSinStockException e)
+    	{
+    		
+    	}
 	}
     
     @GetMapping("/ventaProductos")
