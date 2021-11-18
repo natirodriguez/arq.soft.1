@@ -16,4 +16,8 @@
     <fullyQualifiedTypeName name="arq.soft.front.forms.AddVentaProductoForm"/>
     <fullyQualifiedTypeName name="arq.soft.front.clientes.Usuario"/>
     <fullyQualifiedTypeName name="arq.soft.front.clientes.VentaProducto"/>
+    <fullyQualifiedTypeName name="arq.soft.arqSoft1.dao.ProductoDAO"/>
+    <fullyQualifiedTypeName name="arq.soft.arqSoft1.entitys.Producto"/>
+    <fullyQualifiedTypeName name="arq.soft.arqSoft1.excepciones.ProductoSinStockException"/>
+    <fullyQualifiedTypeName name="arq.soft.front.exceptions.ProductoSinStockException"/>
 </qualifiedTypeNameHistroy>

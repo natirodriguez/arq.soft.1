@@ -2,9 +2,9 @@ package arq.soft.arqSoft1.dto;
 
 public class VentaProductoDTO {
 	private long id;
-	private Long idProducto;
+	private long idProducto;
 	private int cantidadComprada; 
-	private Long idComprador; 	 
+	private long idComprador; 	 
 	 
 	public long getId() {
 		return id;
@@ -18,7 +18,7 @@ public class VentaProductoDTO {
 		return idProducto;
 	}
 
-	public void setIdProducto(Long idProducto) {
+	public void setIdProducto(long idProducto) {
 		this.idProducto = idProducto;
 	}
 
@@ -30,11 +30,11 @@ public class VentaProductoDTO {
 		this.cantidadComprada = cantidadComprada;
 	}
 
-	public Long getIdComprador() {
+	public long getIdComprador() {
 		return idComprador;
 	}
 
-	public void setIdComprador(Long idComprador) {
+	public void setIdComprador(long idComprador) {
 		this.idComprador = idComprador;
 	}
 }

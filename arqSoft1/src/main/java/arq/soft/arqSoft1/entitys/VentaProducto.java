@@ -21,13 +21,13 @@ public class VentaProducto extends Entidad{
 	private long id;
 	
 	@Column(name = "producto_id")
-	private Long idProducto;	
+	private long idProducto;	
 		 
 	@Column(name = "cantidadComprada")
 	private int cantidadComprada; 
 		 
 	@Column(name = "comprador_id")
-	private Long idComprador; 	 
+	private long idComprador; 	 
 	 
 	public long getId() {
 		return id;
@@ -37,11 +37,11 @@ public class VentaProducto extends Entidad{
 		this.id = id;
 	}
 
-	public Long getIdProducto() {
+	public long getIdProducto() {
 		return idProducto;
 	}
 
-	public void setIdProducto(Long idProducto) {
+	public void setIdProducto(long idProducto) {
 		this.idProducto = idProducto;
 	}
 
@@ -53,11 +53,11 @@ public class VentaProducto extends Entidad{
 		this.cantidadComprada = cantidadComprada;
 	}
 
-	public Long getIdComprador() {
+	public long getIdComprador() {
 		return idComprador;
 	}
 
-	public void setIdComprador(Long idComprador) {
+	public void setIdComprador(long idComprador) {
 		this.idComprador = idComprador;
 	}
 }
