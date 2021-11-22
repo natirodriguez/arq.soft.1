@@ -26,7 +26,7 @@ public class VentaProductoController {
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(nickname = "generar_venta_producto", value = "Generar la venta de un producto")
-	public void crearProducto(@RequestBody VentaProducto request) {
+	public void venderProducto(@RequestBody VentaProducto request) {
     	try
     	{
     		VentaProductoDTO dto = new VentaProductoDTO();
