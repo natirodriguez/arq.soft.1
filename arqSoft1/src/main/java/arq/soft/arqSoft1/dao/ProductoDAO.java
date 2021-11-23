@@ -12,6 +12,10 @@ public interface ProductoDAO extends JpaRepository<Producto,Long> {
 	@Query("SELECT p FROM Producto p WHERE p.idVendedor = ?1")
 	List<Producto> obtenerProductosByVendedor(long idVendedor);
 	
+	//POSTGRES
+	//@Query("SELECT p FROM Producto p WHERE lower(p.nombre) like lower(concat('%', :nombreDescripcion,'%'))  or lower(p.descripcion) like lower(concat('%', :nombreDescripcion,'%')) ")
+	//List<Producto> obtenerProductosByNombreYDescripcion(String nombreDescripcion);
+
 	@Query("SELECT p FROM Producto p WHERE p.nombre LIKE %:nombreDescripcion% OR p.descripcion LIKE %:nombreDescripcion% ")
 	List<Producto> obtenerProductosByNombreYDescripcion(String nombreDescripcion);
 	
