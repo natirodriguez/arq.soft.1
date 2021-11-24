@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import arq.soft.arqSoft1.entitys.Producto;
 
 public interface ProductoDAO extends JpaRepository<Producto,Long> {
+	
 	@Query("SELECT p FROM Producto p WHERE p.categoria.id = ?1")
     List<Producto> filtrarProductosPorCategoria(long idCategoria);
 	
@@ -18,5 +19,6 @@ public interface ProductoDAO extends JpaRepository<Producto,Long> {
 
 	@Query("SELECT p FROM Producto p WHERE p.nombre LIKE %:nombreDescripcion% OR p.descripcion LIKE %:nombreDescripcion% ")
 	List<Producto> obtenerProductosByNombreYDescripcion(String nombreDescripcion);
+	
 	
 }

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import arq.soft.arqSoft1.dao.*;
+import arq.soft.arqSoft1.dao.impl.ProductoRepository;
 import arq.soft.arqSoft1.dto.CategoriaDTO;
 import arq.soft.arqSoft1.dto.ProductoDTO;
 import arq.soft.arqSoft1.entitys.Categoria;
@@ -20,6 +22,9 @@ public class ProductoServices {
 	
 	@Autowired
 	private ProductoDAO productoDAO;
+	
+	@Autowired
+	private ProductoRepository productoRepository;
 	
 	@Autowired
 	private CategoriaDAO categoriaDAO;
@@ -232,6 +237,32 @@ public class ProductoServices {
 		}
 	}
 	
+	public List<ProductoDTO> obtenerProductosByFiltro(String descripcion, double precioMinimo, double precioMax) {
+
+		List<ProductoDTO> response = new ArrayList<ProductoDTO>();
+		
+		List<Producto> entitys = productoRepository.obtenerProductosByNombreYDescripcion(descripcion, precioMinimo, precioMax);
+		
+		for(Producto pbd : entitys) {
+			ProductoDTO p = new ProductoDTO();
+			p.setId(pbd.getId());
+			p.setCantidad(pbd.getCantidad());
+			
+			CategoriaDTO c = new CategoriaDTO();
+			c.setId(pbd.getCategoria().getId());
+			c.setNombre(pbd.getCategoria().getNombre());
+			p.setCategoria(c);
+
+			p.setNombre(pbd.getNombre());
+			p.setDescripcion(pbd.getDescripcion());
+			p.setPrecio(pbd.getPrecio());
+			p.setIdVendedor(pbd.getIdVendedor());
+			response.add(p);
+		}
+		
+		return response;
+	}
+	
 	public ProductoDAO getProductoDAO() {
 		return productoDAO;
 	}
@@ -254,6 +285,14 @@ public class ProductoServices {
 
 	public void setCategorias(List<String> categorias) {
 		this.categorias = categorias;
+	}
+
+	public ProductoRepository getProductoRepository() {
+		return productoRepository;
+	}
+
+	public void setProductoRepository(ProductoRepository productoRepository) {
+		this.productoRepository = productoRepository;
 	}
 
 }

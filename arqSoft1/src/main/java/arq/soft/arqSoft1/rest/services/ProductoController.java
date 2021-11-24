@@ -8,6 +8,7 @@ import arq.soft.arqSoft1.dto.CategoriaDTO;
 import arq.soft.arqSoft1.dto.ProductoDTO;
 import arq.soft.arqSoft1.excepciones.CategoriaNotFoundException;
 import arq.soft.arqSoft1.excepciones.ProductoNotFoundException;
+import arq.soft.arqSoft1.rest.request.FiltrosBusqueda;
 import arq.soft.arqSoft1.rest.response.Categoria;
 import arq.soft.arqSoft1.rest.response.Producto;
 import arq.soft.arqSoft1.servicios.ProductoServices;
@@ -251,6 +252,36 @@ public class ProductoController {
 		}
 
 		return c;
+	}
+    
+    @PostMapping(path = "/productos/buscar", 
+    consumes = MediaType.APPLICATION_JSON_VALUE, 
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(nickname = "buscar_productos", value = "Busca  productos")
+	public List<Producto> buscarProducto(@RequestBody FiltrosBusqueda request) {
+    	List<Producto> response = new ArrayList<Producto>();
+    	
+    	List<ProductoDTO> dtos = productoServices.obtenerProductosByFiltro(request.getDescripcion(),request.getPrecioMinimo(), request.getPrecioMaximo());
+    	
+    	for(ProductoDTO pbd : dtos) {
+			Producto p = new Producto();
+			p.setId(pbd.getId());
+			p.setCantidad(pbd.getCantidad());
+			
+			Categoria c = new Categoria();
+			c.setId(pbd.getCategoria().getId());
+			c.setNombre(pbd.getCategoria().getNombre());
+			p.setCategoria(c);
+			
+			p.setNombre(pbd.getNombre());
+			p.setDescripcion(pbd.getDescripcion());
+			p.setPrecio(pbd.getPrecio());
+			p.getIdVendedor();
+			response.add(p);
+		}
+    	
+    	return response;
+
 	}
     
 	public ProductoServices getProductoServices() {
