@@ -7,6 +7,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class FiltrosBusqueda {
 	
 	 
+	public void setPrecioMinimo(double precioMinimo) {
+		this.precioMinimo = precioMinimo;
+	}
+
 	@ApiModelProperty(value = "Descripcion del producto, tipo String", example = "Macotas")
 	private String descripcion;
 	
